@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+
+<body>
+<!--/*@thymesVar id="name" type="java.lang.String"*/-->
+<p th:text="'你好，' + ${person.name} + '先生!' + '您今年' + ${person.age} + '岁，您的性别是'+ ${person.sex} + '!'"></p>
+<br/><br/>
+
+<h1>input中的value</h1>
+<input type="text" th:value="${person.name}"/><br/><br/>
+
+<h1>运算符</h1>
+<p th:with="isEven=(3 % 2 == 0)"></p><br/><br/>
+
+<h1>条件判断</h1>
+
+<h2>if判断</h2>
+<p th:if="${person.age == '50'}">您50岁</p>
+
+<h2>unless判断</h2>
+<p th:unless="${person.age == '60'}">您并非60岁</p>
+
+<h2>关系判断</h2>
+<!-- <p>判断符号用法：gt(>), lt(<), ge(>=), le(<=), not(!). Also eq(==), neq/ne (!=)</p> -->
+<p th:if="11 &lt; 12">11&lt;12</p>
+
+<h2>switch判断</h2>
+<div>
+    <div th:switch="${person.name}">
+        <p th:case="'多弗朗明哥'">多弗朗明哥</p>
+        <p th:case="'唐吉诃德'">唐吉诃德</p>
+        <p th:case="${person.age}">显示年龄</p>
+        <p th:case="*">显示其它</p>
+    </div>
+</div>
+<br/><br/>
+
+<h1>循环遍历</h1>
+<h2>使用p标签展示</h2>
+<div th:if="${not #lists.isEmpty(persons)}">
+    <div th:each="person:${persons}">
+        <p style="background:gray;color:white;">
+            <span th:text="${person.name}"></span>-
+            <span th:text="${person.age}"></span>-
+            <span th:text="${person.sex}"></span>
+        </p>
+    </div>
+</div><br/>
+
+<h2>使用table标签展示</h2>
+<table>
+    <tr>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>性别</th>
+    </tr>
+    <tr th:each="p : ${persons}">
+        <td th:text="${p.name}">Lucy</td>
+        <td th:text="${p.age}">10</td>
+        <td th:text="${p.sex}">man</td>
+        <!--<td th:text="${p.inStock}? #{true} : #{false}">yes</td>-->
+    </tr>
+</table>
+
+<p>
+    <a href="../home.html" th:href="@{/}">Return to home</a>
+</p>
+
+<!-- js获取model中的值 -->
+<script th:inline="javascript">
+    var name = [[${person.name}]];
+    console.log("您好，" + name);
+</script>
+</body>
+</html>

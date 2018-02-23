@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>获取变量值</h1>
+<!--/*@thymesVar id="name" type="java.lang.String"*/-->
+<p th:text="'Hello, ' + ${name} + '!'" >3333</p>
+
+<h1>引入URL</h1>
+<a th:href="@{http://blog.csdn.net/u012706811}">绝对路径</a><br/>
+<a th:href="@{/}">相对路径</a><br/>
+<a th:href="@{css/bootstrap.min.css}">Content路径,默认访问static下的css文件夹</a><br/>
+
+<h1>字符串替换</h1>
+很多时候可能我们只需要对一大段文字中的某一处地方进行替换，可以通过字符串拼接操作完成：<br/>
+<span th:text="'Welcome to our application, ' + ${user.name} + '!'"></span><br/><br/>
+一种更简洁的方式是：<br/>
+<span th:text="|Welcome to our application, ${user.name}!|"></span><br/>
+
+<h1>运算符</h1>
+
+<h1>Utilities</h1>
+${#dates.format(date, 'dd/MMM/yyyy HH:mm')}
+
+
+</body>
+</html>

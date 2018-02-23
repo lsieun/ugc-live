@@ -1,6 +1,20 @@
 # Compiled class file
 *.class
 
+# Generated files
+*/bin/
+*/gen/
+*/out/
+*/target/
+*/.idea/
+.idea/
+*.iml
+target/
+broadcast_log/
+.settings/
+.classpath
+.project
+
 # Log file
 *.log
 
