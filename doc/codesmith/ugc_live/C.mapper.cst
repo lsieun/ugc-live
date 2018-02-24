@@ -1,0 +1,20 @@
+﻿<%@ Template Language="C#" TargetLanguage="Java" Inherits="CodeTemplate" ResponseEncoding="utf-8" Description="根据一张数据表生成实体类"%>
+
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+
+<%-- 数据表 --%>
+<%@ Property Name="Table" Type="TableSchema" DeepLoad="True" Category="Database" Optional="False"%>
+<%@ Property Name="packageName" Default="com.mapper" Category="package" Type="System.String" %>
+<!-- #include file="../zealous_common/CommonScript.cst" -->
+
+<% string clazzName = processUnderScoreName(Table.Name); %>
+package <%= packageName %>;
+
+import com.allin.broadcast.model.<%= clazzName %>;
+import com.allin.broadcast.mapper.GenericMapper;
+import org.springframework.stereotype.Component;
+
+public interface <%= clazzName %>Mapper extends GenericMapper<<%= clazzName %>>{
+	 
+}

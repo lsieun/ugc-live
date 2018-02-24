@@ -1,0 +1,110 @@
+﻿<%@ Template Language="C#" TargetLanguage="Java" Inherits="CodeTemplate" ResponseEncoding="utf-8" Description="根据一张数据表生成实体类"%>
+
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+
+<%-- 数据表 --%>
+<%@ Property Name="Table" Type="TableSchema" DeepLoad="True" Category="Database" Optional="False"%>
+<%@ Property Name="packageName" Default="com.mapper" Category="package" Type="System.String" %>
+<!-- #include file="../zealous_common/CommonScript.cst" -->
+<% string clazzName = processUnderScoreName(Table.Name); %>
+package <%= packageName %>;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.allin.broadcast.Application;
+import com.allin.broadcast.model.<%= clazzName %>;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = Application.class)
+@WebAppConfiguration
+@SuppressWarnings({"rawtypes","unchecked"})
+public class <%= clazzName %>MapperTest{
+
+	@Autowired
+	private <%= clazzName %>Mapper dao;
+    
+    private Map<String,String> paramMap;
+    private Gson gson;
+	
+	@Before
+	public void setUp(){
+		paramMap = new HashMap();
+        gson = new GsonBuilder().serializeNulls().serializeNulls().create();
+	}
+    
+	@After
+	public void tearDown() throws Exception {
+	}    
+	
+	@Test
+	public void testInsert() {
+        <% foreach(ColumnSchema col in Table.Columns) {%>
+        <% string fieldType = GetJavaVariableType(col); %>
+        <% string fieldName = getFieldName(col.Name); %>
+        <% string getterName = getGetterName(col.Name); %>
+        <% string setterName = getSetterName(col.Name); %>
+        paramMap.put("<%= fieldName %>","");
+        <%} %>    
+		
+		long count = dao.insert(paramMap);
+		System.out.println("count = " + count);
+        
+		System.out.println(gson.toJson(paramMap));
+	}
+
+	@Test
+	public void testUpdate() {
+        <% foreach(ColumnSchema col in Table.Columns) {%>
+        <% string fieldType = GetJavaVariableType(col); %>
+        <% string fieldName = getFieldName(col.Name); %>
+        <% string getterName = getGetterName(col.Name); %>
+        <% string setterName = getSetterName(col.Name); %>
+        paramMap.put("<%= fieldName %>", "");
+        <%} %>   		
+        
+		int count = dao.update(paramMap);
+		System.out.println("count = " + count);
+		System.out.println(gson.toJson(paramMap));
+	}
+
+	@Test
+	public void testGetById() {
+		<%= clazzName %> result = dao.getById(1L);
+		
+		System.out.println(gson.toJson(result));
+	}
+
+	@Test
+	public void testGetList() {
+		//paramMap.put("id", "xxx");
+		//paramMap.put("isValid", "1");
+        paramMap.put("firstResult","0");
+        paramMap.put("maxResult","10");
+		List<<%= clazzName %>> list = dao.getList(paramMap);
+		System.out.println(gson.toJson(list));
+	}
+
+	@Test
+	public void testGetCount() {
+		//paramMap.put("id", "xxx");
+		//paramMap.put("isValid", "1");
+        paramMap.put("firstResult","0");
+        paramMap.put("maxResult","10");
+		int count = dao.getCount(paramMap);
+		System.out.println(count);
+	}
+}
