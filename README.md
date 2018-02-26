@@ -15,6 +15,13 @@
 
 [Spring Boot Tutorials](http://www.mkyong.com/tutorials/spring-boot-tutorials/)
 
+[jQuery API](http://api.jquery.com/)
+
+[layer](http://layer.layui.com/)
+
+[LayIM](http://layim.layui.com/?from=layer#getAuth)
+
+
 ## HTML
 
 <html xmlns:th="http://www.thymeleaf.org">在html页面的首行使用这个命名空间，使得可以利用th动态处理元素

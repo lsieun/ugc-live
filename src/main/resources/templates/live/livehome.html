@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>直播间管理页面</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+
+<input id="mybtn" type="button" value="clickMe"/><br/>
+<form id="test" action="#" method="get">
+    <fieldset>
+        <legend>ID区域</legend>
+        <table>
+            <tr><td>自增ID:</td><td><input name="id"/><br/></td></tr>
+            <tr><td>直播间ID:</td><td><input name="roomId"/><br/></td></tr>
+            <tr><td>第三方直播间ID:</td><td><input name="refRoomId"/><br/></td></tr>
+            <tr><td>第三方用户ID:</td><td><input name="refUserId"/><br/></td></tr>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>直播间基本信息</legend>
+        <table>
+            <tr><td>直播间标题:</td><td><input name="roomTitle"/><br/></td></tr>
+            <tr><td>直播间ID:</td><td><input name="roomNotice"/><br/></td></tr>
+            <tr><td>直播类型:</td><td><input name="roomType"/><br/></td></tr>
+            <tr><td>直播间状态:</td><td><input name="liveStatus"/><br/></td></tr>
+        </table>
+    </fieldset>
+</form>
+
+<script type="text/javascript" th:src="@{/js/comm/jquery-3.3.1.js}"></script>
+<script type="text/javascript" th:src="@{/js/layer/layer.js}"></script>
+<script type="text/javascript" th:src="@{/js/live/livehome.js}"></script>
+</body>
+</html>
